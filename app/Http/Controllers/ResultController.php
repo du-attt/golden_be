@@ -12,11 +12,11 @@ class ResultController extends Controller
         if(!$result){
             return response()->json(['message' => 'No results found'], 404);  
         }
-        return response()->json($result)->header('Access-Control-Allow-Origin', '*');
+        return response()->json($result);
     }
     public function getTop10A() {
         $top10 = User::orderByRaw('(toan + vat_li + hoa_hoc) DESC')->limit(10)->get();
-        return response()->json($top10)->header('Access-Control-Allow-Origin', '*');
+        return response()->json($top10);
     
     }
     // public function classifyScores(Request $request) {
@@ -90,9 +90,32 @@ class ResultController extends Controller
                     'percent_4_to_6' => $percent_4_to_6,
                     'percent_below_4' => $percent_below_4,
                 ],
-            ])->header('Access-Control-Allow-Origin', '*');
+            ]);
         }
     
+        return response()->json(['error' => 'Invalid subject'], 400);
+    }
+    public function classifyScoresDetail(Request $request) {
+        $subject = $request->input('subject');
+        
+        $valid_subjects = ['toan', 'ngu_van', 'ngoai_ngu', 'vat_li', 'hoa_hoc', 'sinh_hoc', 'lich_su', 'dia_li', 'gdcd'];
+        
+        if ($subject && in_array($subject, $valid_subjects)) {
+            $scores_distribution = [];
+            $step = ($subject == "toan" || $subject == "ngoai_ngu") ? 0.2 : 0.25;
+            
+            for ($i = 0; $i <= 10; $i += $step) {
+                $count = User::where($subject, '=', $i)->count();
+                $scores_distribution[number_format($i, 2)] = $count;
+            }
+            $top_students = User::orderBy($subject, 'DESC')->limit(10)->get();
+            // return response()->json($scores_distribution);
+            return response()->json([
+                'score_distribution' => $scores_distribution,
+                'top_students' => $top_students
+            ]);
+        }
+        
         return response()->json(['error' => 'Invalid subject'], 400);
     }
 }
