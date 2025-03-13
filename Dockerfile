@@ -20,17 +20,16 @@ RUN apk add --no-cache \
 WORKDIR /var/www
 
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
-
 COPY . .
 
 RUN composer install || true
 
 RUN chmod -R 777 storage bootstrap/cache
 
-COPY nginx.conf /etc/nginx/nginx.conf
-
 EXPOSE 80
 
+# Start both php-fpm and nginx
 CMD php artisan migrate --force && \
     php artisan db:seed --force && \
-    php-fpm & nginx -g 'daemon off;'
+    php-fpm -D && \
+    nginx -g "daemon off;"
