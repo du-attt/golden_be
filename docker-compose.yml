@@ -5,7 +5,8 @@ services:
     build: .
     container_name: laravel_app
     ports:
-      - "80:80"
+      ports:
+      - "${PORT}:${PORT}"
     volumes:
       - .:/var/www
     environment:

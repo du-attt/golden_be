@@ -28,8 +28,8 @@ RUN composer install || true
 
 RUN chmod -R 777 storage bootstrap/cache
 
-EXPOSE 80
+EXPOSE ${PORT}
 
 CMD php artisan migrate --force && \
     php artisan db:seed --force && \
-    php artisan serve --host=0.0.0.0 --port=80
+    php-fpm
