@@ -28,7 +28,7 @@ RUN composer install || true
 
 RUN chmod -R 777 storage bootstrap/cache
 
-EXPOSE 9000
+EXPOSE 80
 
 CMD php artisan migrate --force && \
     php artisan db:seed --force && \
