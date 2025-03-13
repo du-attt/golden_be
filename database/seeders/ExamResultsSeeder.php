@@ -15,9 +15,8 @@ class ExamResultsSeeder extends Seeder
     {
         ini_set('memory_limit', '-1');
 
-        $filePath = storage_path('app/public/diem_thi_thpt_2024.csv');
+        $filePath = public_path('diem_thi_thpt_2024.csv');
         $file = fopen($filePath, 'r');
-
         fgetcsv($file); 
 
         $batchSize = 100;
