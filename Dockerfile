@@ -16,6 +16,7 @@ RUN apk add --no-cache \
         --with-webp \
     && docker-php-ext-install gd pdo pdo_mysql
 
+
 WORKDIR /var/www
 
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
@@ -24,9 +25,9 @@ COPY . .
 
 RUN composer install || true
 
+
 RUN chmod -R 777 storage bootstrap/cache
 
-EXPOSE ${PORT:-10000}
+EXPOSE 10000
 
-
-CMD php artisan serve --host=0.0.0.0 --port=${PORT:-10000}
+CMD ["php", "artisan", "serve", "--host=0.0.0.0", "--port=10000"]
