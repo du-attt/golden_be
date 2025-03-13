@@ -5,13 +5,18 @@ services:
     build: .
     container_name: laravel_app
     ports:
-      - "80:80"
+      - "8080:8080"
     volumes:
       - .:/var/www
     environment:
       - APP_ENV=production
       - APP_DEBUG=false
       - APP_KEY=${APP_KEY}
+      - DB_HOST=mysql
+      - DB_PORT=3306
+      - DB_DATABASE=golden
+      - DB_USERNAME=root
+      - DB_PASSWORD=root
     depends_on:
       - mysql
 
