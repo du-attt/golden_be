@@ -14,45 +14,29 @@ class ResultController extends Controller
         }
         return response()->json($result);
     }
-    public function getTop10A() {
-        $top10 = User::orderByRaw('(toan + vat_li + hoa_hoc) DESC')->limit(10)->get();
-        return response()->json($top10);
+    public function getTop10A($name) {
+        if($name == 'A'){
+            $top10 = User::orderByRaw('(toan + vat_li + hoa_hoc) DESC')->limit(10)->get();
+            return response()->json($top10);
+        }
+        if($name == 'B'){
+            $top10 = User::orderByRaw('(toan + sinh_hoc + hoa_hoc) DESC')->limit(10)->get();
+            return response()->json($top10);
+        }
+        if($name == 'C'){
+            $top10 = User::orderByRaw('(ngu_van + lich_su + dia_li) DESC')->limit(10)->get();
+            return response()->json($top10);
+        }
+        if($name == 'D'){
+            $top10 = User::orderByRaw('(toan + ngu_van + ngoai_ngu) DESC')->limit(10)->get();
+            return response()->json($top10);
+        }
+        if($name == 'A1'){
+            $top10 = User::orderByRaw('(toan + vat_li + ngoai_ngu) DESC')->limit(10)->get();
+            return response()->json($top10);
+        }
     
     }
-    // public function classifyScores(Request $request) {
-    //     $perPage = $request->input('per_page', 100);
-    //     $subject = $request->input('subject'); // Môn học cần lọc
-    //     $level = $request->input('level'); // Mức điểm cần lọc
-    
-    //     // Xác định điều kiện lọc theo mức điểm
-    //     $query = User::select('sbd', 'toan', 'ngu_van', 'ngoai_ngu', 'vat_li', 'hoa_hoc', 'sinh_hoc', 'lich_su', 'dia_li', 'gdcd');
-    
-    //     if ($subject && in_array($subject, ['toan', 'ngu_van', 'ngoai_ngu', 'vat_li', 'hoa_hoc', 'sinh_hoc', 'lich_su', 'dia_li', 'gdcd'])) {
-    //         if ($level == 'gioi') {
-    //             $query->where($subject, '>=', 8);
-    //         } elseif ($level == 'kha') {
-    //             $query->whereBetween($subject, [6, 7.99]);
-    //         } elseif ($level == 'tb') {
-    //             $query->whereBetween($subject, [4, 5.99]);
-    //         } elseif ($level == 'yeu') {
-    //             $query->where($subject, '<', 4);
-    //         }
-    //     }
-    
-    //     // Thực hiện phân trang
-    //     $students = $query->paginate($perPage);
-    
-    //     // Trả về dữ liệu JSON cho frontend
-    //     return response()->json([
-    //         'data' => $students->items(),
-    //         'pagination' => [
-    //             'current_page' => $students->currentPage(),
-    //             'per_page' => $students->perPage(),
-    //             'total' => $students->total(),
-    //             'last_page' => $students->lastPage()
-    //         ]
-    //     ])->header('Access-Control-Allow-Origin', '*');
-    // }
 
     public function classifyScores(Request $request) {
         $subject = $request->input('subject'); 
