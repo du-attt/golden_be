@@ -12,7 +12,6 @@ services:
       - APP_ENV=production
       - APP_DEBUG=false
       - APP_KEY=${APP_KEY}
-      - PORT=80
     depends_on:
       - mysql
 
