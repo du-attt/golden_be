@@ -25,10 +25,13 @@ COPY . .
 
 RUN composer install || true
 
+RUN echo "daemon off;" >> /usr/local/etc/php-fpm.conf
 
 RUN chmod -R 777 storage bootstrap/cache
 
 EXPOSE ${PORT}
+ENV PORT=${PORT}
+
 RUN cp .env.example .env 
 CMD php artisan key:generate && \
     php artisan config:cache && \
