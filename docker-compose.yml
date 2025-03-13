@@ -5,13 +5,14 @@ services:
     build: .
     container_name: laravel_app
     ports:
-      - "80:80"
+      - "8000:8000"
     volumes:
       - .:/var/www
     environment:
       - APP_ENV=production
       - APP_DEBUG=false
       - APP_KEY=${APP_KEY}
+      - PORT=8000
     depends_on:
       - mysql
 
