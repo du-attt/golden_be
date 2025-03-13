@@ -30,5 +30,8 @@ RUN chmod -R 777 storage bootstrap/cache
 
 EXPOSE ${PORT}
 
-CMD php artisan migrate --force && \
+CMD php artisan key:generate && \
+    php artisan config:cache && \
+    php artisan migrate --force && \
     php artisan db:seed --force && \
+    php-fpm
