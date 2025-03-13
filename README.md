@@ -5,12 +5,15 @@
 - Docker và Docker Compose (có thể cài đặt Docker Destop)
 ## Cài đặt dự án
 1. Clone dự án về máy
-2. Sau khi clone truy cập vào thư mục dự án và chạy các lệnh dưới đây
-// Lệnh dùng để tạo database và tạo dữ liệu từ file
-- php artisan migrate --seed --class=ExamResultsSeeder 
-
-
-// Lệnh dùng để tải các tập lệnh cần thiết và build dự án
+2. Copy file .env.example tạo thành file .env sau đó sửa lại giống bên dưới
++ DB_CONNECTION=mysql
++ DB_HOST=mysql
++ DB_PORT=3306
++ DB_DATABASE=your_name_database
++ DB_USERNAME=root
++ DB_PASSWORD=root
+3. Sau khi clone truy cập vào thư mục dự án và chạy các lệnh dưới đây
+// Lệnh dùng để tải các tập dữ liệu cần thiết và build dự án
 - docker-compose up --build
-3. Sau khi chạy bước 2 xong truy cập vào đường dẫn dưới
+4. Sau khi chạy bước 3 xong truy cập vào đường dẫn dưới
 - http://localhost:9000/
