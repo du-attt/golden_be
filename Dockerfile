@@ -29,7 +29,7 @@ RUN composer install || true
 RUN chmod -R 777 storage bootstrap/cache
 
 EXPOSE ${PORT}
-
+RUN cp .env.example .env 
 CMD php artisan key:generate && \
     php artisan config:cache && \
     php artisan migrate --force && \
